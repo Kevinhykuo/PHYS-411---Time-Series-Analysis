@@ -1,0 +1,1107 @@
+
+
+
+
+    
+\documentclass[11pt]{article}
+    
+    \usepackage{parskip}
+    \setcounter{secnumdepth}{0} %Suppress section numbers
+    \usepackage[breakable]{tcolorbox}
+    \tcbset{nobeforeafter}
+    \usepackage{needspace}
+    \usepackage{minted}
+    \usemintedstyle{jupyter_python}
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    \let\Oldtex\TeX     % provide compatibility with nbconvert <= 5.3.1
+    \let\Oldlatex\LaTeX % pre-included in nbconvert > 5.3.1 so redundant
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Assignment 2}
+    
+    
+    
+% Pygments definitions
+    
+    \makeatletter
+    \newcommand*\@iflatexlater{\@ifl@t@r\fmtversion}
+    \@iflatexlater{2016/03/01}{
+	    \newcommand{\wordboundary}{4095}}{
+	    \newcommand{\wordboundary}{255}}
+    \makeatother
+
+    \newif\ifcode
+    \codefalse
+    \definecolor{Grey}{rgb}{0.40,0.40,0.40}
+    %If using XeLaTeX, use magic to not highlight . operators with purple.
+    \ifdefined\XeTeXcharclass
+    \XeTeXinterchartokenstate = 1
+    \newXeTeXintercharclass \mycharclassGrey
+    \XeTeXcharclass `. \mycharclassGrey
+    \XeTeXinterchartoks 0 \mycharclassGrey   = {\bgroup\ifcode\color{Grey}\else\fi}
+
+    \XeTeXinterchartoks \wordboundary \mycharclassGrey = {\bgroup\ifcode\color{Grey}\else\fi}
+
+    \XeTeXinterchartoks \mycharclassGrey 0   = {\egroup}
+    \XeTeXinterchartoks \mycharclassGrey \wordboundary = {\egroup}
+    \fi %end magical operator highlighting
+    %End Reconfigured Pygments
+    
+   
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+
+    % needed definitions
+    \newif\ifleftmargins
+    \newlength{\promptlength}
+
+    % cell style settings
+        \leftmarginsfalse
+
+    
+    % prompt
+    \newcommand{\prompt}[3]{
+        \needspace{1.1cm}
+        \settowidth{\promptlength}{ #1 [#3] }
+        \ifleftmargins\hspace{-\promptlength}\hspace{-5pt}\fi
+        {\color{#2}#1 [#3]:}
+        \ifleftmargins\vspace{-2.7ex}\fi
+    }
+    
+    
+    % environments
+    \newenvironment{OutVerbatim}{\VerbatimEnvironment%
+        \begin{tcolorbox}[breakable, boxrule=.5pt, size=fbox, pad at break*=1mm, opacityfill=0]
+            \begin{Verbatim}
+            }{
+            \end{Verbatim}
+        \end{tcolorbox}
+    }
+    
+    %Updated MathJax Compatibility (if future behaviour of the notebook changes this may be removed)
+    \renewcommand{\TeX}{\ifmmode \textrm{\Oldtex} \else \textbackslash TeX \fi}
+    \renewcommand{\LaTeX}{\ifmmode \Oldlatex \else \textbackslash LaTeX \fi}
+    
+    % Header Adjustments
+    \renewcommand{\paragraph}{\textbf}
+    \renewcommand{\subparagraph}[1]{\textit{\textbf{#1}}}
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    \geometry{verbose,tmargin=.5in,bmargin=.7in,lmargin=.5in,rmargin=.5in}
+    
+
+    \begin{document}
+    
+    
+    
+    
+    
+
+    
+    \hypertarget{assignment-2}{%
+\section{Assignment 2}\label{assignment-2}}
+
+    
+\prompt{In}{incolor}{33}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+import numpy as np
+import scipy as sci
+import matplotlib.pyplot as plt
+import pandas as pd 
+import seaborn as sns 
+import datetime as dt
+from numpy import absolute, sqrt, log
+from scipy import stats
+from textwrap import wrap
+from IPython.display import Math, display
+
+plt.rcParams['figure.dpi'] = 300
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \hypertarget{import-data}{%
+\subsubsection{Import data}\label{import-data}}
+
+    
+\prompt{In}{incolor}{2}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+DW = pd.read_csv('/Users/Kev/Documents/Uvic/Python/PHYS 411 - Time Series Analysis/Data Sets/WindWaveData.dat', 
+                 sep='\s+')
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    
+\prompt{In}{incolor}{3}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Import data
+D1 = pd.read_csv('/Users/Kev/Documents/Uvic/Python/PHYS 411 - Time Series Analysis/Data Sets/UVicSci_temperature.dat', 
+                 header=2)
+D2 = pd.read_csv('/Users/Kev/Documents/Uvic/Python/PHYS 411 - Time Series Analysis/Data Sets/AllStations_temperature_h_2017.dat', 
+                 sep='\s+', header=1, usecols=[0,35])
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \hypertarget{my-functions}{%
+\subsection{My Functions:}\label{my-functions}}
+
+\hypertarget{correlation-coeffcient}{%
+\subsubsection{Correlation coeffcient:}\label{correlation-coeffcient}}
+
+\(r_{xy} = \frac{ \sum_{i=1}^N (x_i - \bar{x})(y_i - \bar{y})} {\left[ \sum_{i=1}^N(x_i - \bar{x})^2 \sum_{i=1}^N(y_i - \bar{y})^2 \right]^{\frac{1}{2}} }\)
+
+    
+\prompt{In}{incolor}{4}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+def r(d, f, g):
+    s = 0
+    x = 0
+    y = 0
+    fm = np.nanmean(f)
+    gm = np.nanmean(g)
+    for i in range(len(d)):
+        s += (f[i] - fm) * (g[i] - gm) 
+        x += (f[i] - fm)**2
+        y += (g[i] - gm)**2
+        i += 1
+    R = s / sqrt(x*y)
+    return(R)
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \hypertarget{correlation-check}{%
+\subsection{Correlation check:}\label{correlation-check}}
+
+\(-Z_\frac{\alpha}{2} \leq \frac{1}{2} \sqrt{N-3} \ln{\left(\frac{1+r_{xy}}{1-r_{xy}}\right)} \leq Z_{1-\frac{\alpha}{2}}\)
+
+    
+\prompt{In}{incolor}{5}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+def checkcorr(d, f, g, z):
+    N = len(d)
+    ru = 1 + r(d, f, g)
+    rd = 1 - r(d, f, g)
+    CC = 0.5 * sqrt(N-3) * log(ru/rd)
+    if -(z+1) < CC < z+1: 
+        print('Linear correlation exists at', 
+              z*100,'level!')
+    else:
+        print('Nope! CC =', CC, 
+              '\n Linear correlation does not exist at the', 
+              z*100, '% level!')
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \hypertarget{regression-line}{%
+\subsection{Regression line:}\label{regression-line}}
+
+    
+\prompt{In}{incolor}{6}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Functions to calculate A and B
+# Three of them to triple check, because I'm paranoid
+def coeff1(d, f, g): 
+    s1 = 0
+    s2 = 0
+    for i in range(len(d)):
+        s1 += f[i]*g[i] 
+        s2 += f[i]**2
+    T = s1 - len(d)*np.nanmean(f)*np.nanmean(g)
+    D = s2 - len(d)*np.nanmean(f)**2
+    B = T/D
+    A = np.nanmean(g) - np.nanmean(f)*B
+    return(A, B)
+
+def coeff2(d, f, g):
+    s1 = 0
+    s2 = 0
+    for i in range(len(d)):
+        s1 += (g[i]-np.nanmean(g))*f[i]
+        s2 += (f[i]-np.nanmean(f))*f[i]
+    B = s1/s2
+    A = np.nanmean(g) - np.nanmean(f)*B
+    return(A, B)
+
+def coeff3(d, f, g):
+    s1 = 0
+    s2 = 0
+    for i in range(len(d)):
+        s1 += (f[i]-np.nanmean(f))*(g[i]-np.nanmean(g))
+        s2 += (f[i]-np.nanmean(f))**2
+    B = s1/s2
+    A = np.nanmean(g) - np.nanmean(f)*B 
+    return(A, B)
+
+# Function to find the intercept
+def a(f, g, B):
+    a = np.nanmean(g) - np.nanmean(f)*B
+    return(a)
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \hypertarget{uncertainty-for-regression}{%
+\subsection{Uncertainty for
+regression:}\label{uncertainty-for-regression}}
+
+\(S_\epsilon = \left[ \frac{1}{N-2} \sum (y_i - \tilde{y})^2 \right]^\frac{1}{2}\)
+
+    
+\prompt{In}{incolor}{7}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+def s_eps(d, f, g):   
+    N = len(d)
+    s1 = 0
+    c = coeff1(d, f, g)
+    for i in range(N):
+        d = g[i] - c[0] - c[1]*f[i]
+        s1 += d**2
+    S_Eps = sqrt(s1/(N-2))
+    return(S_Eps)
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \(S_x^2 = \frac{1}{N-1} \sum(x_i - \bar{x})^2\)
+
+    
+\prompt{In}{incolor}{8}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+def s_x2(d, f, g):    
+    N = len(d)
+    s1 = 0
+    for i in range(N):
+        d = f[i] - np.nanmean(f)
+        s1 += d**2
+    S_x2 = s1/(N-1)
+    return(S_x2)
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \(S_x = \left[ \frac{1}{N-1} \sum(x_i - \bar{x})^2 \right]^\frac{1}{2}\)
+
+    
+\prompt{In}{incolor}{9}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+def s_x(d, f, g):  
+    S_x = sqrt(s_x2(d, f, g))
+    return(S_x)
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \(\delta b = \frac{S_\epsilon}{\sqrt{N-1} S_x^2}\)
+
+    
+\prompt{In}{incolor}{10}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+def uncert(d, f, g, p):
+    N = len(d)
+    D = sqrt(N-1)*s_x2(d, f, g)
+    T = stats.t.ppf(1-(1-p)/2, N-1)
+    Delta = s_eps(d, f, g)*T/D
+    return(Delta)
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \hypertarget{expected-intervaluncertainty-for-mean}{%
+\subsection{Expected interval/Uncertainty for
+mean:}\label{expected-intervaluncertainty-for-mean}}
+
+\(<x> = \bar{x} \pm t_{\frac{\alpha}{2}, N-1} \frac{S_x}{\sqrt{N}}\)
+
+    
+\prompt{In}{incolor}{11}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+def ExpValRange(f, p):
+    N = len(f)
+    ave = np.nanmean(f)
+    T = stats.t.ppf(1-(1-p)/2, N-1)
+    d = f
+    g = 0
+    sx = s_x(d, f, g)
+    r2 = ave + T*sx/sqrt(N)
+    r1 = ave - T*sx/sqrt(N)
+    return(r1, r2)
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \hypertarget{question-1}{%
+\subsection{Question 1}\label{question-1}}
+
+    \hypertarget{plot-scatter-plot}{%
+\subsubsection{Plot Scatter Plot:}\label{plot-scatter-plot}}
+
+    
+\prompt{In}{incolor}{40}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+sns.regplot('WindSpeed', 'WaveHeight', data=DW, fit_reg = False)
+plt.title('Relationship between %s and %s' %('wind speed', 'wave height'))
+plt.xlabel('Wind Speed (m/s)')
+plt.ylabel('Wave Height (m)')
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+            
+\prompt{Out}{outcolor}{40}
+\begin{OutVerbatim}[commandchars=\\\{\}]
+Text(0, 0.5, 'Wave Height (m)')
+\end{OutVerbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Based on this plot, it is difficult to determine if wave height is
+dependent on wind speed. However, there is an increase in minimum wave
+height with respect to wind speed, which suggests that it may be
+affected by wind speed, and the data may be linearly dependent.
+
+    \hypertarget{find-correlation-coefficient}{%
+\subsubsection{Find Correlation
+Coefficient:}\label{find-correlation-coefficient}}
+
+\hypertarget{finding-the-correlation-coefficients-using-built-in-functions}{%
+\paragraph{Finding the correlation coefficients using built in
+functions:}\label{finding-the-correlation-coefficients-using-built-in-functions}}
+
+    
+\prompt{In}{incolor}{13}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+DWC1 = np.corrcoef(DW['WaveHeight'], DW['WindSpeed'])
+DWC2 = sci.stats.pearsonr(DW['WaveHeight'], DW['WindSpeed'])
+
+print('Here are the expected values for the correlation coefficient:' 
+      '\n Based on the "black box" \n')
+print('Correlation coefficient matrix: \n', DWC1)
+print('Correlation coefficient:', DWC1[1,0])
+print('Pearson correlation coefficient:', DWC2[0])
+# print('p-value:', DWC2[1])
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Here are the expected values for the correlation coefficient:
+ Based on the "black box"
+
+Correlation coefficient matrix:
+ [[1.         0.32062445]
+ [0.32062445 1.        ]]
+Correlation coefficient: 0.3206244479377165
+Pearson correlation coefficient: 0.32062444793771644
+
+    \end{Verbatim}
+
+    \hypertarget{finding-the-correlation-coefficient-using-my-code}{%
+\paragraph{Finding the correlation coefficient using my
+code:}\label{finding-the-correlation-coefficient-using-my-code}}
+
+    
+\prompt{In}{incolor}{14}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+WH = DW['WaveHeight']
+WS = DW['WindSpeed']
+
+# Get the correlation coeffcient
+ruhs = r(DW, WS, WH)
+
+# Check with "black box" values
+if ruhs-DWC1[1,0] < 10**(-15):
+    display(Math(r'r_{uH_s}=%.17f' % ruhs))
+    print('Correlation coefficients match the'
+          '"black box" correlation coefficients!')
+else: 
+    display(Math(r'r_{uH_s}=%.17f' % ruhs))
+    print('IT IS WRONG YOU DONKEY!!!')
+    
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    $$r_{uH_s}=0.32062444793771616$$
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Correlation coefficients match the"black box" correlation coefficients!
+
+    \end{Verbatim}
+
+    \hypertarget{check-for-linear-correlation-at-the-95-level-using-my-code}{%
+\paragraph{Check for linear correlation at the 95\% level using my
+code:}\label{check-for-linear-correlation-at-the-95-level-using-my-code}}
+
+    
+\prompt{In}{incolor}{15}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+checkcorr(DW, WS, WH, 0.95)
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Nope! CC = 5.08386956070061
+ Linear correlation does not exist at the 95.0 \% level!
+
+    \end{Verbatim}
+
+    \hypertarget{regression-line}{%
+\subsubsection{Regression line:}\label{regression-line}}
+
+\hypertarget{find-equation-for-regression-line}{%
+\paragraph{Find equation for regression
+line:}\label{find-equation-for-regression-line}}
+
+    
+\prompt{In}{incolor}{16}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+Coeff1 = coeff1(DW, WS, WH)
+Coeff2 = coeff2(DW, WS, WH)
+Coeff3 = coeff3(DW, WS, WH)
+
+# coeff1, coeff2, coeff3, np.nanmean(WH), np.nanmean(WS)
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \hypertarget{plot-it-out}{%
+\paragraph{Plot it out:}\label{plot-it-out}}
+
+    
+\prompt{In}{incolor}{34}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+x = np.linspace(2.5, 12, 2)
+y1 = Coeff1[0] + x*Coeff1[1]
+
+sns.regplot('WindSpeed', 'WaveHeight', data=DW, fit_reg = False)
+plt.title('Relationship between %s and %s with regression line'
+          %('wind speed', 'wave height'))
+plt.xlabel('Wind Speed (m/s)')
+plt.ylabel('Wave Height (m)')
+plt.plot(x, y1, label='Linear regression line ($H_s$)')
+plt.xlim(2.9, 11.1)
+plt.legend()
+
+print('Slope = ', Coeff1[1])
+print('Intercept = ', Coeff1[0])
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Slope =  0.0763178042687184
+Intercept =  1.6253867451763844
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{regression-lines-with-uncertainties}{%
+\subsection{Regression lines with
+uncertainties}\label{regression-lines-with-uncertainties}}
+
+    \hypertarget{h_s-a-b-pm-delta-bu}{%
+\subsubsection{\texorpdfstring{\(H_s = a + (b \pm \delta b)u\)}{H\_s = a + (b \textbackslash{}pm \textbackslash{}delta b)u}}\label{h_s-a-b-pm-delta-bu}}
+
+    
+\prompt{In}{incolor}{35}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+Delb = uncert(DW, WS, WH, 0.95)
+
+x = np.linspace(2.5, 12, 2)
+y1 = Coeff1[0] + x*Coeff1[1]
+y2 = Coeff1[0] + x*(Coeff1[1]+Delb) 
+y3 = Coeff1[0] + x*(Coeff1[1]-Delb) 
+
+Title1 = wrap('Relationship between wind speed' 
+              'and wave height with regression' 
+              'line and uncertainty range')
+
+sns.regplot('WindSpeed', 'WaveHeight', data=DW, fit_reg = False)
+plt.title("\n".join(Title1))
+plt.xlabel('Wind Speed (m/s)')
+plt.ylabel('Wave Height (m)')
+plt.plot(x, y1, label='Linear regression line ($H_s$)')
+plt.plot(x, y2, label='Uncertainty ($+\delta b$)')
+plt.plot(x, y3, label='Uncertainty ($-\delta b$)')
+plt.xlim(2.9, 11.1)
+plt.legend()
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+            
+\prompt{Out}{outcolor}{35}
+\begin{OutVerbatim}[commandchars=\\\{\}]
+<matplotlib.legend.Legend at 0x1a2f7166a0>
+\end{OutVerbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{h_s-apm-delta-a-b-pm-delta-bu}{%
+\subsubsection{\texorpdfstring{\(H_s = (a\pm \delta a) + (b \pm \delta b)u\)}{H\_s = (a\textbackslash{}pm \textbackslash{}delta a) + (b \textbackslash{}pm \textbackslash{}delta b)u}}\label{h_s-apm-delta-a-b-pm-delta-bu}}
+
+    
+\prompt{In}{incolor}{36}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+Delb = uncert(DW, WS, WH, 0.95)
+
+x = np.linspace(2.5, 12, 2)
+y1 = Coeff1[0] + x*Coeff1[1]
+y2 = a(WS, WH, Coeff1[1]+Delb) + x*(Coeff1[1]+Delb) 
+y3 = a(WS, WH, Coeff1[1]-Delb) + x*(Coeff1[1]-Delb) 
+
+Title1 = wrap('Relationship between wind speed' 
+              'and wave height with regression line'
+              'and uncertainty range of 95%')
+
+sns.regplot('WindSpeed', 'WaveHeight', data=DW, fit_reg = False)
+plt.title("\n".join(Title1))
+plt.xlabel('Wind Speed (m/s)')
+plt.ylabel('Wave Height (m)')
+plt.plot(x, y1, label='Linear regression line ($H_s$)')
+plt.plot(x, y2, label='Uncertainty ($+\delta a, +\delta b$)')
+plt.plot(x, y3, label='Uncertainty ($-\delta a, -\delta b$)')
+plt.xlim(2.9, 11.1)
+plt.legend()
+
+print('(+): Slope = ', (Coeff1[1]+Delb), 
+      'Intercept = ', a(WS, WH, Coeff1[1]+Delb))
+print('(-): Slope = ', (Coeff1[1]-Delb), 
+      'Intercept = ', a(WS, WH, Coeff1[1]-Delb))
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(+): Slope =  0.1016503591347917 Intercept =  1.4243862833662373
+(-): Slope =  0.050985249402645094 Intercept =  1.8263872069865315
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{scatter-plot-with-regression-line-using-built-in-functions}{%
+\subsubsection{Scatter plot with regression line using built in
+functions:}\label{scatter-plot-with-regression-line-using-built-in-functions}}
+
+    
+\prompt{In}{incolor}{37}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+sns.regplot('WindSpeed', 'WaveHeight', data=DW, ci=95)
+TitleReg = wrap('Relationship between %s and %s with' 
+                '95%% confidence interval fror linear regression' 
+              %('wind speed', 'wave height'))
+plt.title("\n".join(TitleReg))
+plt.xlabel('Wind speed (m/s)')
+plt.ylabel('Wave height (m)')
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/Kev/anaconda3/lib/python3.6/site-packages/scipy/stats/stats.py:1713: FutureWarning:
+Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]`
+instead of `arr[seq]`. In the future this will be interpreted as an array index,
+`arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+            
+\prompt{Out}{outcolor}{37}
+\begin{OutVerbatim}[commandchars=\\\{\}]
+Text(0, 0.5, 'Wave height (m)')
+\end{OutVerbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The regression lines for \(H_s = (a\pm \delta a) + (b \pm \delta b)u\)
+looks like the graph generated using built-in functions in the Seaborn
+package.
+
+I can sleep peacefully now.
+
+    \hypertarget{expected-range-for-wave-heights}{%
+\subsubsection{Expected range for wave
+heights}\label{expected-range-for-wave-heights}}
+
+    
+\prompt{In}{incolor}{21}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+WindSpeed = 10
+
+def WHrange(ws):
+    r1 = a(WS, WH, Coeff1[1]+Delb) + ws*(Coeff1[1]+Delb) 
+    r2 = a(WS, WH, Coeff1[1]-Delb) + ws*(Coeff1[1]-Delb) 
+    return(r1, r2)
+
+print('Range for waveheights for windspeed of',
+      WindSpeed, 'm/s is', WHrange(WindSpeed)[0], 
+      'm to', WHrange(WindSpeed)[1], 'm')
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Range for waveheights for windspeed of 10 m/s is 2.4408898747141543 m to 2.3362397010129823 m
+
+    \end{Verbatim}
+
+    \hypertarget{question-2}{%
+\subsection{Question 2}\label{question-2}}
+
+    \hypertarget{clean-up-the-minute-resolution-data}{%
+\subsubsection{Clean up the minute resolution
+data}\label{clean-up-the-minute-resolution-data}}
+
+    
+\prompt{In}{incolor}{22}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Generate dates for D1 (minute resolution data)
+date = pd.date_range(start='2011-12-31 17:00:00.000000', 
+                     end='2017-08-30 16:59:00.000000', 
+                     freq='min')
+# date.size, D1.shape
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    
+\prompt{In}{incolor}{23}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Insert dates into D1 dataframe
+D1.insert(loc=0, column='Time', value=date)
+
+# Rename the columns
+D12 = D1.rename(index=str, columns={"2979360": "Temperature"})
+
+# Set index
+DM = D12.set_index('Time')
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \hypertarget{clean-up-the-hourly-resolution-data}{%
+\subsubsection{Clean up the hourly resolution
+data}\label{clean-up-the-hourly-resolution-data}}
+
+    
+\prompt{In}{incolor}{24}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Convert time in D2 from MatLab time to Python Time
+D2['Time'] = D2['NaN'].apply(lambda matlab_datenum: 
+                             dt.datetime.fromordinal(int(matlab_datenum)) 
+                             + dt.timedelta(days=matlab_datenum%1)
+                             - dt.timedelta(days = 366)) 
+
+# Rename the columns
+D22 = D2.rename(index=str, 
+                columns={"NaN": "MatLab Time", "48.4623": "Temperature"})
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    
+\prompt{In}{incolor}{25}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Reorder columns 
+cols = D22.columns.tolist()
+cols = cols[-1:] + cols[:-1]
+D23 = D22[cols]
+
+# Set time as index column
+DH = D23.set_index('Time')
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \hypertarget{select-the-dates-we-want}{%
+\subsubsection{Select the dates we
+want:}\label{select-the-dates-we-want}}
+
+    
+\prompt{In}{incolor}{26}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Select the dates:
+# Hour resolution data
+DH15 = DH.loc['2015-08-07 00:00:00':'2015-08-07 23:59']
+DH17 = DH.loc['2017-08-07 00:00:00':'2017-08-07 23:59']
+
+# Minute resolution data
+DM15 = DM.loc['2015-08-07 00:00:00':'2015-08-07 23:59']
+DM17 = DM.loc['2017-08-07 00:00:00':'2017-08-07 23:59']
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \hypertarget{plot-it-out}{%
+\subsubsection{Plot it out:}\label{plot-it-out}}
+
+    
+\prompt{In}{incolor}{38}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+DH15['Temperature'].plot(label = 'Temp (Hour)')
+DM15['Temperature'].plot(label = 'Temp (Min)')
+plt.title('Temperature data from UVic Sci from 7 August 2015')
+plt.ylabel('Temperature ($^\circ C$)')
+plt.legend()
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+            
+\prompt{Out}{outcolor}{38}
+\begin{OutVerbatim}[commandchars=\\\{\}]
+<matplotlib.legend.Legend at 0x1a4529e908>
+\end{OutVerbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+\prompt{In}{incolor}{39}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+DH17['Temperature'].plot(label = 'Temp (Hour)')
+DM17['Temperature'].plot(label = 'Temp (Min)')
+plt.title('Temperature data from UVic Sci from 7 August 2017')
+plt.ylabel('Temperature ($^\circ C$)')
+plt.legend()
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+            
+\prompt{Out}{outcolor}{39}
+\begin{OutVerbatim}[commandchars=\\\{\}]
+<matplotlib.legend.Legend at 0x1a4530de80>
+\end{OutVerbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{calculate-the-means}{%
+\subsubsection{Calculate the means}\label{calculate-the-means}}
+
+    
+\prompt{In}{incolor}{31}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Means: 
+DH17Mean = np.nanmean(DH17['Temperature'])
+DH15Mean = np.nanmean(DH15['Temperature'])
+DM17Mean = np.nanmean(DM17['Temperature'])
+DM15Mean = np.nanmean(DM15['Temperature'])
+ 
+display(Math(r'\mu_{H17}=%.10f' % DH17Mean)) 
+display(Math(r'\mu_{M17}=%.10f' % DM17Mean))
+display(Math(r'\mu_{H15}=%.10f' % DH15Mean)) 
+display(Math(r'\mu_{M15}=%.10f' % DM15Mean))
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    $$\mu_{H17}=18.6695833333$$
+
+    
+    $$\mu_{M17}=18.6695694444$$
+
+    
+    $$\mu_{H15}=18.1379166667$$
+
+    
+    $$\mu_{M15}=18.1374513889$$
+
+    
+    Mean temperature for August 7, 2017: 18.6695833333 \(^\circ C\) (Hour),
+18.6695694444 \(^\circ C\) (Min)
+
+Mean temperature for August 7, 2015: 18.1379166667 \(^\circ C\) (Hour),
+18.1374513889 \(^\circ C\) (Min)
+
+    \hypertarget{determine-with-95-confidence-if-7-august-2017-is-warmer-than-7-august-2015}{%
+\subsubsection{Determine with 95\% confidence if 7 August 2017 is warmer
+than 7 August
+2015}\label{determine-with-95-confidence-if-7-august-2017-is-warmer-than-7-august-2015}}
+
+    
+\prompt{In}{incolor}{32}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+def isit(f, g):
+    if f[0]<=g[1]<=f[1] or g[0]<=f[1]<=g[1]:
+        print('Expected intervals overlap.'
+              '\n7 August 2017 is not warmer' 
+              'than 7 August 2015 with 95% confidence.')
+    else: 
+        print('Expected intervals does not overlap.'
+              '\n7 August 2017 is warmer' 
+              'than 7 August 2015 with 95% confidence.')
+    return(' ')
+
+print('Is Aug, 17 warmer in 2017 than in 15 based on the hour resolution data?')
+RH17 = ExpValRange(DH17['Temperature'], 0.95)
+RH15 = ExpValRange(DH15['Temperature'], 0.95)
+print('2017 expected interval:', RH17, '\n2015 expected interval:', RH15)
+print('2017 expected temperature:', DH17Mean, '+/-', DH17Mean-RH17[0], 
+      '\n2015 expected temperature:', DH15Mean, '+/-', DH15Mean-RH15[0])
+print(isit(RH17, RH15))
+
+print('Is Aug, 17 warmer in 2017 than in 15 based on the minute resolution data?')
+RM17 = ExpValRange(DM17['Temperature'], 0.95)
+RM15 = ExpValRange(DM15['Temperature'], 0.95)
+print('2017 expected interval:', RM17, '\n2015 expected interval:', RM15)
+print('2017 expected temperature:', DM17Mean, '+/-', DM17Mean-RM17[0], 
+      '\n2015 expected temperature:', DM15Mean, '+/-', DM15Mean-RM15[0])
+print(isit(RM17, RM15))
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Is Aug, 17 warmer in 2017 than in 15 based on the hour resolution data?
+2017 expected interval: (16.64145069522452, 20.697715971442143)
+2015 expected interval: (16.862147660851505, 19.413685672481826)
+2017 expected temperature: 18.669583333333332 +/- 2.0281326381088114
+2015 expected temperature: 18.137916666666666 +/- 1.2757690058151603
+Expected intervals overlap.
+7 August 2017 is not warmerthan 7 August 2015 with 95\% confidence.
+
+Is Aug, 17 warmer in 2017 than in 15 based on the minute resolution data?
+2017 expected interval: (18.42529046549471, 18.913848423394178)
+2015 expected interval: (17.982958041275783, 18.291944736501993)
+2017 expected temperature: 18.669569444444445 +/- 0.24427897894973327
+2015 expected temperature: 18.137451388888888 +/- 0.15449334761310496
+Expected intervals does not overlap.
+7 August 2017 is warmerthan 7 August 2015 with 95\% confidence.
+
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
